@@ -6,31 +6,25 @@ using UnityEngine;
 /// </summary>
 public class PlayerMovementAlternateArrows : MonoBehaviour
 {
+    [SerializeField] float speedIncrement = 1f;
+    private KeyCode lastKeyPressed;
+    private FollowTrack followTrack;
 
-    [SerializeField] float speed = 1f;
-    [SerializeField] float maxSpeed = 10f;
-    Rigidbody rb;
-    KeyCode lastKeyPressed;
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        followTrack = GetComponent<FollowTrack>();
     }
-    void FixedUpdate()
+
+    void Update()
     {
-        float actualSpeed = rb.linearVelocity.magnitude;
-        if (actualSpeed > maxSpeed)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && lastKeyPressed != KeyCode.LeftArrow)
         {
-            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
-            return;
-        }
-        if (Input.GetKey(KeyCode.LeftArrow) && lastKeyPressed != KeyCode.LeftArrow)
-        {
-            rb.linearVelocity += Vector3.forward * speed;
+            followTrack.SetSpeed(followTrack.GetActualPlayerSpeed() + speedIncrement);
             lastKeyPressed = KeyCode.LeftArrow;
         }
-        if (Input.GetKey(KeyCode.RightArrow) && lastKeyPressed != KeyCode.RightArrow)
+        if (Input.GetKeyDown(KeyCode.RightArrow) && lastKeyPressed != KeyCode.RightArrow)
         {
-            rb.linearVelocity += Vector3.forward * speed;
+            followTrack.SetSpeed(followTrack.GetActualPlayerSpeed() + speedIncrement);
             lastKeyPressed = KeyCode.RightArrow;
         }
     }

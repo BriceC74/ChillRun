@@ -1,0 +1,75 @@
+using UnityEngine;
+using UnityEngine.Splines;
+using Unity.Mathematics;
+
+/// <summary>
+/// Manages the player's movement along a predefined spline track.
+/// </summary>
+public class FollowTrack : MonoBehaviour
+{
+    [SerializeField] SplineContainer track;
+    [SerializeField] float speed = 1f;
+    [SerializeField] float maxSpeed = 10f;
+    [SerializeField] float deceleration = 0.1f;
+    private float currentDistance = 0f;
+    private Rigidbody rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
+    {
+        if (track == null)
+        {
+            Debug.LogError("Track SplineContainer is not assigned.");
+            return;
+        }
+
+        currentDistance += speed * Time.fixedDeltaTime;
+        if (currentDistance > track.CalculateLength())
+        {
+            currentDistance = track.CalculateLength();
+        }
+
+        float3 newPositionFloat3 = track.EvaluatePosition(currentDistance / track.CalculateLength());
+        float3 directionFloat3 = track.EvaluateTangent(currentDistance / track.CalculateLength());
+
+        Vector3 newPosition = new Vector3(newPositionFloat3.x, newPositionFloat3.y, newPositionFloat3.z);
+        Vector3 direction = new Vector3(directionFloat3.x, directionFloat3.y, directionFloat3.z).normalized;
+
+        newPosition.y = rb.position.y;
+
+        rb.MovePosition(newPosition);
+        rb.AddForce(direction * speed, ForceMode.Acceleration);
+
+        if (rb.linearVelocity.magnitude > maxSpeed)
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+        }
+
+        if (!Input.anyKey)
+        {
+            speed = Mathf.Max(speed - deceleration * Time.fixedDeltaTime, 0f);
+        }
+    }
+
+    /// <summary>
+    /// Gets the current speed of the player.
+    /// </summary>
+    /// <returns>The magnitude of the player's linear velocity.</returns>
+    public float GetActualPlayerSpeed()
+    {
+        return rb.linearVelocity.magnitude;
+    }
+
+    /// <summary>
+    /// Sets the speed of the player.
+    /// </summary>
+    /// <param name="newSpeed">The new speed to set.</param>
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+}
