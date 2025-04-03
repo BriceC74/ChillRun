@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 /// <summary>
 /// Manages the player's movement by alternating arrow key presses.
 /// </summary>
@@ -19,12 +18,14 @@ public class PlayerMovementAlternateArrows : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow) && lastKeyPressed != KeyCode.LeftArrow)
         {
-            followTrack.SetSpeed(followTrack.GetActualPlayerSpeed() + speedIncrement);
+            float newSpeed = followTrack.GetActualPlayerSpeed() + speedIncrement;
+            followTrack.SetSpeed(Mathf.Min(newSpeed, followTrack.GetMaxSpeed()));
             lastKeyPressed = KeyCode.LeftArrow;
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) && lastKeyPressed != KeyCode.RightArrow)
         {
-            followTrack.SetSpeed(followTrack.GetActualPlayerSpeed() + speedIncrement);
+            float newSpeed = followTrack.GetActualPlayerSpeed() + speedIncrement;
+            followTrack.SetSpeed(Mathf.Min(newSpeed, followTrack.GetMaxSpeed()));
             lastKeyPressed = KeyCode.RightArrow;
         }
     }

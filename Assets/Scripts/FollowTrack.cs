@@ -56,18 +56,23 @@ public class FollowTrack : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets the current speed of the player.
+    /// Gets the current speed of the player based on the distance traveled along the spline.
     /// </summary>
-    /// <returns>The magnitude of the player's linear velocity.</returns>
+    /// <returns>The current speed of the player.</returns>
     public float GetActualPlayerSpeed()
     {
-        return rb.linearVelocity.magnitude;
+        return speed;
     }
 
     /// <summary>
     /// Sets the speed of the player.
     /// </summary>
     /// <param name="newSpeed">The new speed to set.</param>
+    public float GetMaxSpeed()
+    {
+        return maxSpeed;
+    }
+
     public void SetSpeed(float newSpeed)
     {
         speed = newSpeed;
