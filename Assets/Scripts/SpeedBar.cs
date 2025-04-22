@@ -7,7 +7,7 @@ public class SpeedBar : MonoBehaviour
     [SerializeField] Image speedBar;
     [SerializeField] Image speedBarBackground;
 
-    void Update()
+    void FixedUpdate()
     {
         if (followTrack != null && speedBar != null && speedBarBackground != null)
         {
@@ -16,9 +16,9 @@ public class SpeedBar : MonoBehaviour
 
             float fillAmount = Mathf.Clamp01(currentSpeed / maxSpeed);
 
-            Debug.Log("currentSpeed: " + currentSpeed);
-            Debug.Log("maxSpeed: " + maxSpeed);
-            Debug.Log("fillAmount: " + fillAmount);
+            // Debug.Log("currentSpeed: " + currentSpeed);
+            // Debug.Log("maxSpeed: " + maxSpeed);
+            // Debug.Log("fillAmount: " + fillAmount);
 
             speedBar.fillAmount = fillAmount;
         }

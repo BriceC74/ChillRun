@@ -73,6 +73,11 @@ public class FollowTrack : MonoBehaviour
         return maxSpeed;
     }
 
+    public void SetMaxSpeed(float newMaxSpeed)
+    {
+        maxSpeed = newMaxSpeed;
+    }
+
     public void SetSpeed(float newSpeed)
     {
         speed = newSpeed;
