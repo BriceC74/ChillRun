@@ -20,6 +20,19 @@ public class ConstantSpeed : MonoBehaviour
     {
         followTrack = GetComponent<FollowTrack>();
         initialMaxSpeed = followTrack.GetMaxSpeed();
+
+        // Subscribe to the OnRaceStart event
+        StartRace startRace = FindFirstObjectByType<StartRace>();
+        if (startRace != null)
+        {
+            startRace.OnRaceStart += OnRaceStart;
+        }
+        else
+        {
+            Debug.LogError("StartRace component not found in the scene.");
+        }
+
+        enabled = false;
     }
 
     void FixedUpdate()
@@ -40,5 +53,10 @@ public class ConstantSpeed : MonoBehaviour
             followTrack.SetMaxSpeed(initialMaxSpeed);
             shouldResetMaxSpeed = false;
         }
+    }
+
+    private void OnRaceStart()
+    {
+        enabled = true;
     }
 }

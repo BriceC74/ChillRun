@@ -1,8 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Manages the player's movement by alternating arrow key presses.
-/// </summary>
 public class PlayerMovementAlternateArrows : MonoBehaviour
 {
     [SerializeField] float speedIncrement = 1f;
@@ -12,6 +9,18 @@ public class PlayerMovementAlternateArrows : MonoBehaviour
     void Start()
     {
         followTrack = GetComponent<FollowTrack>();
+
+        StartRace startRace = FindFirstObjectByType<StartRace>();
+        if (startRace != null)
+        {
+            startRace.OnRaceStart += OnRaceStart;
+        }
+        else
+        {
+            Debug.LogError("StartRace component not found in the scene.");
+        }
+
+        enabled = false;
     }
 
     void Update()
@@ -28,5 +37,10 @@ public class PlayerMovementAlternateArrows : MonoBehaviour
             followTrack.SetSpeed(Mathf.Min(newSpeed, followTrack.GetMaxSpeed()));
             lastKeyPressed = KeyCode.RightArrow;
         }
+    }
+
+    private void OnRaceStart()
+    {
+        enabled = true;
     }
 }
