@@ -1,32 +1,27 @@
 using UnityEngine;
 
-public class EnGame : MonoBehaviour
+public class EndGame : MonoBehaviour
 {
+    [SerializeField] ParticleSystem[] confettis;
 
-    public ParticleSystem[] confettis;
     void Start()
     {
-
-    }
-
-    void Update()
-    {
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             Debug.Log("You WON !");
             this.GetComponent<BoxCollider>().enabled = false;
             foreach (var confetti in confettis)
             {
+                Debug.Log(confetti);
                 confetti.Play();
             }
         }
 
-        if (other.tag == "Ennemy")
+        if (other.CompareTag("Ennemy"))
         {
             Debug.Log("You LOST !");
             this.GetComponent<BoxCollider>().enabled = false;
