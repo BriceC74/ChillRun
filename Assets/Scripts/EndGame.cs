@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnGame : MonoBehaviour
 {
+
+    public ParticleSystem[] confettis;
     void Start()
     {
 
@@ -18,6 +20,10 @@ public class EnGame : MonoBehaviour
         {
             Debug.Log("You WON !");
             this.GetComponent<BoxCollider>().enabled = false;
+            foreach (var confetti in confettis)
+            {
+                confetti.Play();
+            }
         }
 
         if (other.tag == "Ennemy")
