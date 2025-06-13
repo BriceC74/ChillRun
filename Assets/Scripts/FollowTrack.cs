@@ -7,18 +7,24 @@ using Unity.Mathematics;
 /// </summary>
 public class FollowTrack : MonoBehaviour
 {
-    [SerializeField] SplineContainer track;
-    [SerializeField] float speed = 1f;
-    [SerializeField] float maxSpeed = 10f;
-    [SerializeField] float deceleration = 0.1f;
+    [SerializeField] private SplineContainer track;
+    [SerializeField] private float speed = 1f;
+    [SerializeField] private float maxSpeed = 10f;
+    [SerializeField] private float deceleration = 0.1f;
     private float currentDistance = 0f;
     private Rigidbody rb;
 
+    /// <summary>
+    /// Initializes the component and gets the Rigidbody component.
+    /// </summary>
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
+    /// <summary>
+    /// Updates the player's position and speed along the spline track.
+    /// </summary>
     void FixedUpdate()
     {
         if (track == null)
@@ -65,19 +71,27 @@ public class FollowTrack : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the speed of the player.
+    /// Gets the maximum speed of the player.
     /// </summary>
-    /// <param name="newSpeed">The new speed to set.</param>
+    /// <returns>The maximum speed of the player.</returns>
     public float GetMaxSpeed()
     {
         return maxSpeed;
     }
 
+    /// <summary>
+    /// Sets the maximum speed of the player.
+    /// </summary>
+    /// <param name="newMaxSpeed">The new maximum speed to set.</param>
     public void SetMaxSpeed(float newMaxSpeed)
     {
         maxSpeed = newMaxSpeed;
     }
 
+    /// <summary>
+    /// Sets the current speed of the player.
+    /// </summary>
+    /// <param name="newSpeed">The new speed to set.</param>
     public void SetSpeed(float newSpeed)
     {
         speed = newSpeed;

@@ -1,8 +1,9 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
+/// <summary>
+/// Manages the race start countdown and triggers the race start event.
+/// </summary>
 public class StartRace : MonoBehaviour
 {
     private int countdownStep = 0; // 0: initial, 1: 3, 2: 2, 3: 1, 4: GO
@@ -13,12 +14,9 @@ public class StartRace : MonoBehaviour
     public Light[] OrangeLights;
     public Light[] GreenLights;
 
-    void Start()
-    {
-        Debug.Log(OrangeLights);
-        Debug.Log(GreenLights);
-    }
-
+    /// <summary>
+    /// Updates the countdown and handles the race start.
+    /// </summary>
     void Update()
     {
         if (!raceStarted)
@@ -27,6 +25,9 @@ public class StartRace : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the countdown logic based on arrow key presses.
+    /// </summary>
     void HandleCountdown()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -35,7 +36,6 @@ public class StartRace : MonoBehaviour
             {
                 countdownStep++;
                 OrangeLights[countdownStep].enabled = true;
-                Debug.Log(countdownStep == 0 ? "1" : "3");
             }
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -44,14 +44,12 @@ public class StartRace : MonoBehaviour
             {
                 countdownStep++;
                 OrangeLights[countdownStep].enabled = true;
-                Debug.Log(countdownStep == 2 ? "2" : "GO");
             }
         }
 
         if (countdownStep == 4)
         {
             raceStarted = true;
-            Debug.Log("Race Started!");
             OnRaceStart?.Invoke();
 
             foreach (var light in OrangeLights)

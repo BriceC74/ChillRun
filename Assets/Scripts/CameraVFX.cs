@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
+/// <summary>
+/// Manages camera visual effects based on player and enemy progress along their tracks.
+/// </summary>
 public class CameraVFX : MonoBehaviour
 {
     [SerializeField] Transform playerTransform;
@@ -15,6 +18,9 @@ public class CameraVFX : MonoBehaviour
     private Vignette vignette;
     private LensDistortion lensDistortion;
 
+    /// <summary>
+    /// Initializes the camera visual effects.
+    /// </summary>
     void Start()
     {
         if (globalVolume.profile.TryGet(out vignette))
@@ -28,6 +34,9 @@ public class CameraVFX : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the camera visual effects based on player and enemy progress.
+    /// </summary>
     void FixedUpdate()
     {
         if (vignette != null)

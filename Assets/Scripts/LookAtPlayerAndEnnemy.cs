@@ -1,13 +1,19 @@
 using UnityEngine;
 
+/// <summary>
+/// Makes the camera look at both the player and the enemy, adjusting its position and orientation.
+/// </summary>
 public class LookAtPlayerAndEnnemy : MonoBehaviour
 {
-    [SerializeField] Transform playerTransform;
-    [SerializeField] Vector3 baseOffsetPosition = new Vector3(-3, 3, -5);
-    [SerializeField] Transform ennemyTransform;
-    [SerializeField] float smoothSpeed = 0.125f;
-    [SerializeField] float heightMultiplier = 0.5f;
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private Vector3 baseOffsetPosition = new Vector3(-3, 3, -5);
+    [SerializeField] private Transform ennemyTransform;
+    [SerializeField] private float smoothSpeed = 0.125f;
+    [SerializeField] private float heightMultiplier = 0.5f;
 
+    /// <summary>
+    /// Updates the camera's position and orientation to look at both the player and the enemy.
+    /// </summary>
     void FixedUpdate()
     {
         if (playerTransform != null && ennemyTransform != null)

@@ -5,8 +5,12 @@ using UnityEngine;
 /// </summary>
 public class FollowTarget : MonoBehaviour
 {
-    [SerializeField] Transform target;
-    [SerializeField] Vector3 offsetPosition = new Vector3(0, 1.5f, -2);
+    [SerializeField] private Transform target;
+    [SerializeField] private Vector3 offsetPosition = new Vector3(0, 1.5f, -2);
+
+    /// <summary>
+    /// Updates the position and orientation of the object to follow the target.
+    /// </summary>
     void Update()
     {
         transform.position = target.position + offsetPosition;

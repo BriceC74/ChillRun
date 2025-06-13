@@ -1,23 +1,24 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manages the end game logic, including triggering confetti and restarting the level.
+/// </summary>
 public class EndGame : MonoBehaviour
 {
-    [SerializeField] ParticleSystem[] confettis;
+    [SerializeField] private ParticleSystem[] confettis;
 
-    void Start()
-    {
-    }
-
+    /// <summary>
+    /// Handles the trigger event when an object enters the collider.
+    /// </summary>
+    /// <param name="other">The collider that triggered the event.</param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("You WON !");
             this.GetComponent<BoxCollider>().enabled = false;
             foreach (var confetti in confettis)
             {
-                Debug.Log(confetti);
                 confetti.Play();
             }
             Invoke("QuitGame", 5f);
@@ -25,17 +26,22 @@ public class EndGame : MonoBehaviour
 
         if (other.CompareTag("Ennemy"))
         {
-            Debug.Log("You LOST !");
             this.GetComponent<BoxCollider>().enabled = false;
             Invoke("RestartLevel", 5f);
         }
     }
 
+    /// <summary>
+    /// Quits the game.
+    /// </summary>
     private void QuitGame()
     {
         Application.Quit();
     }
 
+    /// <summary>
+    /// Restarts the current level.
+    /// </summary>
     private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

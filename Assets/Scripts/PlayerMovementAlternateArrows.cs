@@ -1,11 +1,17 @@
 using UnityEngine;
 
+/// <summary>
+/// Manages the player's movement by alternating arrow key presses.
+/// </summary>
 public class PlayerMovementAlternateArrows : MonoBehaviour
 {
-    [SerializeField] float speedIncrement = 1f;
+    [SerializeField] private float speedIncrement = 1f;
     private KeyCode lastKeyPressed;
     private FollowTrack followTrack;
 
+    /// <summary>
+    /// Initializes the component and subscribes to the race start event.
+    /// </summary>
     void Start()
     {
         followTrack = GetComponent<FollowTrack>();
@@ -23,6 +29,9 @@ public class PlayerMovementAlternateArrows : MonoBehaviour
         enabled = false;
     }
 
+    /// <summary>
+    /// Updates the player's speed based on arrow key presses.
+    /// </summary>
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow) && lastKeyPressed != KeyCode.LeftArrow)
@@ -39,6 +48,9 @@ public class PlayerMovementAlternateArrows : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Enables the component when the race starts.
+    /// </summary>
     private void OnRaceStart()
     {
         enabled = true;

@@ -1,12 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the speed bar UI element based on the player's speed.
+/// </summary>
 public class SpeedBar : MonoBehaviour
 {
-    [SerializeField] FollowTrack followTrack;
-    [SerializeField] Image speedBar;
-    [SerializeField] Image speedBarBackground;
+    [SerializeField] private FollowTrack followTrack;
+    [SerializeField] private Image speedBar;
+    [SerializeField] private Image speedBarBackground;
 
+    /// <summary>
+    /// Updates the speed bar UI based on the player's current speed.
+    /// </summary>
     void FixedUpdate()
     {
         if (followTrack != null && speedBar != null && speedBarBackground != null)
@@ -15,10 +21,6 @@ public class SpeedBar : MonoBehaviour
             float maxSpeed = followTrack.GetMaxSpeed();
 
             float fillAmount = Mathf.Clamp01(currentSpeed / maxSpeed);
-
-            // Debug.Log("currentSpeed: " + currentSpeed);
-            // Debug.Log("maxSpeed: " + maxSpeed);
-            // Debug.Log("fillAmount: " + fillAmount);
 
             speedBar.fillAmount = fillAmount;
         }
