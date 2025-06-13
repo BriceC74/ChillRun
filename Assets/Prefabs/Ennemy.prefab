@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e2a18d203f8de42e5ab6665df6c02057, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,10 +118,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7126660605971282866}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -152,8 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   track: {fileID: 0}
   speed: 1
-  maxSpeed: 10
-  deceleration: 0.1
+  maxSpeed: 10.4
+  deceleration: 7
 --- !u!114 &1096080016891942478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,4 +166,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e882a07d3c4cd429ebc8adc1edbd9522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedIncrement: 1
+  speedIncrement: 0.09
+  playerPosition: {fileID: 0}
