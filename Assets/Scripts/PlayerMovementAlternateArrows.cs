@@ -8,6 +8,7 @@ public class PlayerMovementAlternateArrows : MonoBehaviour
     [SerializeField] private float speedIncrement = 1f;
     private KeyCode lastKeyPressed;
     private FollowTrack followTrack;
+    private Material playerMaterial;
 
     /// <summary>
     /// Initializes the component and subscribes to the race start event.
@@ -15,6 +16,7 @@ public class PlayerMovementAlternateArrows : MonoBehaviour
     void Start()
     {
         followTrack = GetComponent<FollowTrack>();
+        playerMaterial = GetComponent<Renderer>().material;
 
         StartRace startRace = FindFirstObjectByType<StartRace>();
         if (startRace != null)
@@ -30,7 +32,7 @@ public class PlayerMovementAlternateArrows : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates the player's speed based on arrow key presses.
+    /// Updates the player's speed based on arrow key presses and adjusts the Fresnel power.
     /// </summary>
     void Update()
     {
@@ -46,6 +48,12 @@ public class PlayerMovementAlternateArrows : MonoBehaviour
             followTrack.SetSpeed(Mathf.Min(newSpeed, followTrack.GetMaxSpeed()));
             lastKeyPressed = KeyCode.RightArrow;
         }
+
+        float currentSpeed = followTrack.GetActualPlayerSpeed();
+        float minPower = 0.3f;
+        float maxPower = 5f;
+        float fresnelPower = Mathf.Max(minPower, maxPower - currentSpeed);
+        playerMaterial.SetFloat("_fresnel_power", fresnelPower);
     }
 
     /// <summary>

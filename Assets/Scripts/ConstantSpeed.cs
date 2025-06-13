@@ -15,6 +15,8 @@ public class ConstantSpeed : MonoBehaviour
 
     private float initialMaxSpeed;
 
+    private Material playerMaterial;
+
     /// <summary>
     /// Initializes the component and subscribes to the race start event.
     /// </summary>
@@ -22,6 +24,7 @@ public class ConstantSpeed : MonoBehaviour
     {
         followTrack = GetComponent<FollowTrack>();
         initialMaxSpeed = followTrack.GetMaxSpeed();
+        playerMaterial = GetComponent<Renderer>().material;
 
         StartRace startRace = FindFirstObjectByType<StartRace>();
         if (startRace != null)
@@ -57,6 +60,13 @@ public class ConstantSpeed : MonoBehaviour
             followTrack.SetMaxSpeed(initialMaxSpeed);
             shouldResetMaxSpeed = false;
         }
+
+
+        float currentSpeed = followTrack.GetActualPlayerSpeed();
+        float minPower = -1.3f;
+        float maxPower = 5f;
+        float fresnelPower = Mathf.Max(minPower, maxPower - currentSpeed);
+        playerMaterial.SetFloat("_fresnel_power", fresnelPower);
     }
 
     /// <summary>
