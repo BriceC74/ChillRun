@@ -82,4 +82,21 @@ public class FollowTrack : MonoBehaviour
     {
         speed = newSpeed;
     }
+
+    /// <summary>
+    /// Gets the progress percentage of the player along the spline track.
+    /// </summary>
+    /// <returns>The progress percentage of the player along the spline track.</returns>
+    public float GetProgressPercentage()
+    {
+        if (track == null)
+        {
+            Debug.LogError("Track SplineContainer is not assigned.");
+            return 0f;
+        }
+
+        float totalLength = track.CalculateLength();
+        float percentage = currentDistance / totalLength * 100f;
+        return percentage;
+    }
 }
